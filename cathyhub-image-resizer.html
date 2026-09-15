@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CathyHub Image Resizer — Resize Images Online</title>
+<meta name="description" content="CathyHub Image Resizer — resize JPG, PNG and WEBP images quickly and privately in your browser.">
+<meta name="keywords" content="image resizer, resize image online, JPG resizer, PNG resizer, WEBP resizer, CathyHub">
+<style>
+:root{--primary:#2563eb;--primary2:#7c3aed;--text:#172033;--muted:#667085;--bg:#f6f8fc;--card:#fff;--border:#e5e7eb}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,"Noto Sans Bengali",sans-serif;background:linear-gradient(135deg,#f7f9ff,#eef4ff);color:var(--text)}
+header{max-width:1100px;margin:auto;padding:24px 20px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:52px;height:52px;border-radius:15px;background:linear-gradient(135deg,var(--primary),var(--primary2));color:#fff;display:grid;place-items:center;font-weight:800;font-size:23px;box-shadow:0 8px 25px #2563eb30}
+.brand h1{font-size:22px;margin:0}.brand p{margin:3px 0 0;color:var(--muted);font-size:13px}
+nav a{color:#344054;text-decoration:none;font-weight:700;margin-left:14px;padding:10px 14px;border-radius:10px}nav a.active{background:#e9efff;color:#1747c8}
+main{max-width:1000px;margin:10px auto 50px;padding:0 20px}.hero{text-align:center;padding:30px 10px 22px}.hero h2{font-size:38px;margin:0 0 10px}.hero p{color:var(--muted);font-size:17px;margin:0}
+.card{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:26px;box-shadow:0 15px 45px #10182812}
+.upload{border:2px dashed #9db7ff;border-radius:18px;padding:42px 20px;text-align:center;background:#f8faff;cursor:pointer;transition:.2s}.upload:hover{background:#f0f5ff;border-color:var(--primary)}
+.upload .icon{font-size:45px}.upload h3{margin:10px 0 7px;font-size:22px}.upload p{margin:0;color:var(--muted)}input[type=file]{display:none}
+.controls{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px}.control{border:1px solid var(--border);border-radius:15px;padding:17px;background:#fff}.control label{display:block;font-weight:700;margin-bottom:9px}.row{display:flex;gap:10px;align-items:center}.row input,.row select{width:100%;padding:11px;border:1px solid #d0d5dd;border-radius:10px;font-size:15px}.check{display:flex;align-items:center;gap:8px;margin-top:10px;color:#475467}
+.actions{display:flex;gap:12px;justify-content:center;margin-top:22px;flex-wrap:wrap}.btn{border:0;border-radius:12px;padding:13px 22px;font-weight:800;font-size:15px;cursor:pointer}.primary{background:linear-gradient(90deg,var(--primary),var(--primary2));color:#fff}.secondary{background:#eef2f7;color:#344054}.btn:disabled{opacity:.45;cursor:not-allowed}
+.status{text-align:center;margin:18px 0;color:#475467;font-weight:600}.results{margin-top:24px}.results h3{margin-bottom:12px}.result{display:flex;align-items:center;gap:15px;border:1px solid var(--border);padding:13px;border-radius:14px;margin:10px 0;background:#fff}.thumb{width:72px;height:72px;object-fit:cover;border-radius:10px;background:#f2f4f7}.meta{flex:1}.meta strong{display:block;margin-bottom:5px;word-break:break-word}.meta small{color:var(--muted)}.download{background:#111827;color:#fff;text-decoration:none;padding:10px 14px;border-radius:9px;font-weight:700;white-space:nowrap}
+.info{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}.info div{background:#fff;border:1px solid var(--border);border-radius:15px;padding:18px;text-align:center}.info b{display:block;font-size:17px;margin-bottom:6px}.info span{color:var(--muted);font-size:14px}
+footer{max-width:1000px;margin:0 auto;padding:25px 20px 45px;text-align:center;color:var(--muted);font-size:14px}
+@media(max-width:700px){header{align-items:flex-start;flex-direction:column}nav a{margin:0 8px 0 0}.hero h2{font-size:30px}.controls,.info{grid-template-columns:1fr}.result{align-items:flex-start;flex-wrap:wrap}.download{margin-left:auto}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><div class="logo">CH</div><div><h1>CathyHub Tools</h1><p>Simple • Fast • Private</p></div></div>
+  <nav><a href="https://cathyhub.shop/">🏠 Home</a><a class="active" href="#">🖼️ Image Resizer</a></nav>
+</header>
+
+<main>
+<section class="hero">
+<h2>🖼️ Image Resizer</h2>
+<p>ছবির width ও height সহজেই পরিবর্তন করুন — দ্রুত ও নিরাপদে</p>
+</section>
+
+<section class="card">
+<label class="upload" for="files">
+<div class="icon">📤</div><h3>ছবি নির্বাচন করুন</h3><p>JPG • JPEG • PNG • WEBP — একসাথে ২০টি পর্যন্ত</p>
+</label>
+<input id="files" type="file" accept="image/jpeg,image/png,image/webp" multiple>
+
+<div class="controls">
+<div class="control">
+<label>Resize mode</label>
+<div class="row"><select id="mode"><option value="fit">Fit — aspect ratio বজায় রাখুন</option><option value="stretch">Stretch — width ও height নির্দিষ্ট করুন</option></select></div>
+</div>
+<div class="control">
+<label>Width (px)</label>
+<div class="row"><input id="width" type="number" min="1" max="10000" placeholder="যেমন 1200"><span>px</span></div>
+</div>
+<div class="control">
+<label>Height (px)</label>
+<div class="row"><input id="height" type="number" min="1" max="10000" placeholder="যেমন 800"><span>px</span></div>
+<div class="check"><input id="lock" type="checkbox" checked> Aspect ratio lock</div>
+</div>
+<div class="control">
+<label>Output format</label>
+<select id="format"><option value="original">Original format</option><option value="image/jpeg">JPG</option><option value="image/png">PNG</option><option value="image/webp">WEBP</option></select>
+</div>
+<div class="control">
+<label>Quality <span id="qval">85%</span></label>
+<input id="quality" type="range" min="10" max="100" value="85" style="width:100%">
+</div>
+<div class="control">
+<label>Quick sizes</label>
+<select id="preset"><option value="">Select a preset</option><option value="1920x1080">1920 × 1080</option><option value="1280x720">1280 × 720</option><option value="1200x1200">1200 × 1200</option><option value="1080x1080">1080 × 1080</option><option value="1080x1350">1080 × 1350</option><option value="1080x1920">1080 × 1920</option><option value="800x800">800 × 800</option></select>
+</div>
+</div>
+
+<div class="actions">
+<button class="btn primary" id="resizeBtn" disabled>Resize Images</button>
+<button class="btn secondary" id="clearBtn">Clear</button>
+</div>
+<div class="status" id="status">কোনো ছবি নির্বাচন করা হয়নি</div>
+<div class="results" id="results"></div>
+</section>
+
+<div class="info">
+<div><b>🔒 Private</b><span>ছবি আপনার browser-এর মধ্যেই process হয়</span></div>
+<div><b>⚡ Fast</b><span>কোনো upload server দরকার নেই</span></div>
+<div><b>📱 Mobile Friendly</b><span>Phone ও PC দুটোতেই ব্যবহারযোগ্য</span></div>
+</div>
+</main>
+
+<footer>
+© 2026 CathyHub Tools • Image Resizer • Your images stay on your device.
+</footer>
+
+<script>
+const filesEl=document.getElementById('files'), resizeBtn=document.getElementById('resizeBtn'), clearBtn=document.getElementById('clearBtn');
+const widthEl=document.getElementById('width'), heightEl=document.getElementById('height'), lockEl=document.getElementById('lock');
+const modeEl=document.getElementById('mode'), formatEl=document.getElementById('format'), qualityEl=document.getElementById('quality');
+const qval=document.getElementById('qval'), presetEl=document.getElementById('preset'), statusEl=document.getElementById('status'), resultsEl=document.getElementById('results');
+let selected=[];
+
+filesEl.addEventListener('change',()=>{
+ selected=[...filesEl.files].slice(0,20);
+ resizeBtn.disabled=!selected.length;
+ statusEl.textContent=selected.length?`${selected.length}টি ছবি নির্বাচিত হয়েছে`:'কোনো ছবি নির্বাচন করা হয়নি';
+ resultsEl.innerHTML='';
+ if(selected.length===1){
+   const img=new Image(); img.onload=()=>{widthEl.value=img.naturalWidth;heightEl.value=img.naturalHeight;};
+   img.src=URL.createObjectURL(selected[0]);
+ }
+});
+qualityEl.addEventListener('input',()=>qval.textContent=qualityEl.value+'%');
+presetEl.addEventListener('change',()=>{
+ if(!presetEl.value)return;
+ const [w,h]=presetEl.value.split('x');widthEl.value=w;heightEl.value=h;
+});
+widthEl.addEventListener('input',()=>{
+ if(!lockEl.checked||!selected.length)return;
+ const img=new Image();img.onload=()=>{if(img.naturalWidth)heightEl.value=Math.round(widthEl.value*img.naturalHeight/img.naturalWidth)};img.src=URL.createObjectURL(selected[0]);
+});
+heightEl.addEventListener('input',()=>{
+ if(!lockEl.checked||!selected.length)return;
+ const img=new Image();img.onload=()=>{if(img.naturalHeight)widthEl.value=Math.round(heightEl.value*img.naturalWidth/img.naturalHeight)};img.src=URL.createObjectURL(selected[0]);
+});
+function loadImage(file){return new Promise((res,rej)=>{const img=new Image();img.onload=()=>{URL.revokeObjectURL(img.src);res(img)};img.onerror=rej;img.src=URL.createObjectURL(file)})}
+function bytes(n){if(n<1024)return n+' B';if(n<1048576)return (n/1024).toFixed(1)+' KB';return (n/1048576).toFixed(2)+' MB'}
+function ext(type){return type==='image/png'?'png':type==='image/webp'?'webp':'jpg'}
+resizeBtn.addEventListener('click',async()=>{
+ if(!selected.length)return;
+ const w=Math.max(1,parseInt(widthEl.value)||0),h=Math.max(1,parseInt(heightEl.value)||0);
+ if(!w||!h){statusEl.textContent='Width ও Height দিন';return}
+ resizeBtn.disabled=true;resultsEl.innerHTML='<h3>Results</h3>';
+ for(let i=0;i<selected.length;i++){
+  const file=selected[i],img=await loadImage(file);
+  let tw=w,th=h;
+  if(modeEl.value==='fit'){
+   const scale=Math.min(w/img.naturalWidth,h/img.naturalHeight);tw=Math.max(1,Math.round(img.naturalWidth*scale));th=Math.max(1,Math.round(img.naturalHeight*scale));
+  }
+  const canvas=document.createElement('canvas');canvas.width=tw;canvas.height=th;
+  const ctx=canvas.getContext('2d');ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';ctx.drawImage(img,0,0,tw,th);
+  let type=formatEl.value==='original'?(file.type||'image/jpeg'):formatEl.value;
+  if(type==='image/jpeg')ctx.fillStyle='#fff',ctx.globalCompositeOperation='destination-over',ctx.fillRect(0,0,tw,th),ctx.globalCompositeOperation='source-over';
+  const blob=await new Promise(r=>canvas.toBlob(r,type,Number(qualityEl.value)/100));
+  const url=URL.createObjectURL(blob),base=file.name.replace(/\.[^.]+$/,'');
+  const outName=base+'-'+tw+'x'+th+'.'+ext(type);
+  const div=document.createElement('div');div.className='result';
+  div.innerHTML=`<img class="thumb" src="${url}"><div class="meta"><strong>${outName}</strong><small>${img.naturalWidth}×${img.naturalHeight} → ${tw}×${th} • ${bytes(file.size)} → ${bytes(blob.size)}</small></div><a class="download" href="${url}" download="${outName}">Download</a>`;
+  resultsEl.appendChild(div);
+ }
+ statusEl.textContent=`${selected.length}টি ছবি resize সম্পন্ন হয়েছে ✅`;
+ resizeBtn.disabled=false;
+});
+clearBtn.addEventListener('click',()=>{selected=[];filesEl.value='';resizeBtn.disabled=true;resultsEl.innerHTML='';statusEl.textContent='কোনো ছবি নির্বাচন করা হয়নি';widthEl.value='';heightEl.value='';});
+</script>
+</body>
+</html>
